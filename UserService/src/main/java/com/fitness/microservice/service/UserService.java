@@ -78,11 +78,8 @@ public class UserService {
         return userResponse;
     }
 
-    public Boolean existByUserId(String userId) {
-
-        log.info("Calling User Validation API for userId: {}", userId);
-
-        return repository.existsByKeycloakId(userId);
+    public boolean existByUserId(String userId) {
+        return repository.existsById(Long.valueOf(userId));
     }
 }
 

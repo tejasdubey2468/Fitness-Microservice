@@ -18,17 +18,26 @@ public class ActivityController {
     private ActivityService activityService;
 
     @PostMapping
-    public ResponseEntity<ActivityResponse> trackActivity (@RequestBody ActivityRequest request , @RequestHeader("X-User-ID") String userId){
-     if(userId != null){
-         request.setUserId(userId);
-     }
-     return ResponseEntity.ok(activityService.trackActivity(request));
+    public ResponseEntity<ActivityResponse> trackActivity(
+            @RequestBody ActivityRequest request,
+            @RequestHeader("X-User-ID") String userId) {
+
+        System.out.println("X-User-ID = " + userId);
+
+        if (userId != null) {
+            request.setUserId(userId);
+        }
+
+        System.out.println("Request userId = " + request.getUserId());
+
+        return ResponseEntity.ok(activityService.trackActivity(request));
     }
-    @GetMapping
-    public ResponseEntity<List<ActivityResponse>> getUserActivities(@RequestHeader("X-User-ID") String userId){
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<List<ActivityResponse>> getUserActivities(
+            @PathVariable String userId) {
+
         return ResponseEntity.ok(activityService.getUserActivities(userId));
     }
-
 
     @GetMapping("/{activityId}")
     public ResponseEntity<ActivityResponse> getActivity(@PathVariable String activityId){
