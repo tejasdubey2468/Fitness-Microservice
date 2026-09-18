@@ -1,4 +1,4 @@
-package com.fitness.ai.service;
+package com.fitness.ai.service.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
