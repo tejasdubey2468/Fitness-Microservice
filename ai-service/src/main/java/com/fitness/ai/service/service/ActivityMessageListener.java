@@ -13,11 +13,33 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ActivityMessageListener {
 
+    private final ActivityAiService aiService;
     private final RecommendationRepository recommendationRepository;
 
     @RabbitListener(queues = "activity.queue")
     public void processActivity(Activity activity) {
-        log.info("Received activity for processing: {}", activity.getId());
 
+        log.info("========== ACTIVITY RECEIVED ==========");
+        log.info("Activity ID: {}", activity.getId());
+
+        try {
+
+            Recommendation recommendation =
+                    aiService.generateRecommendation(activity);
+
+            log.info("========== RECOMMENDATION GENERATED ==========");
+            log.info("Recommendation: {}", recommendation);
+
+            Recommendation savedRecommendation =
+                    recommendationRepository.save(recommendation);
+
+            log.info("========== RECOMMENDATION SAVED ==========");
+            log.info("Saved ID: {}", savedRecommendation.getId());
+
+        } catch (Exception e) {
+
+            log.error("Failed to generate recommendation for activity: {}",
+                    activity.getId(), e);
+        }
     }
 }

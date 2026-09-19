@@ -18,8 +18,8 @@ public class Recommendation {
     private String activityId;
     private String activityType;
     private String recommendation;
-    private List<String> improvement;
-    private List<String> suggestion;
+    private List<String> improvements;
+    private List<String> suggestions;
     private List<String> safety;
 
     @CreatedDate
