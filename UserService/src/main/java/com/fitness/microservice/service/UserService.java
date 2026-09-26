@@ -79,7 +79,7 @@ public class UserService {
     }
 
     public boolean existByUserId(String userId) {
-        return repository.existsById(Long.valueOf(userId));
+        return repository.existsByKeycloakId(String.valueOf(userId));
     }
 }
 
