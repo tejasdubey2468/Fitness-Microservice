@@ -1,295 +1,273 @@
 # 🏋️ Fitness Microservices
 
-A **Fitness Management System** built using **Java Spring Boot** to learn and implement **Microservices Architecture** and modern backend development practices.
+A fitness management application built while learning **Microservice Architecture** with Spring Boot, Spring Cloud, React, and AI.
 
-This project is being developed step-by-step as I learn different concepts of Spring Boot, Spring Cloud, Microservices, Security, Docker, and distributed systems.
+## 📌 About
 
-> 🚧 **Project Status:** Under Development
-> This project will continuously evolve as new microservices and technologies are added.
+This project was created as a hands-on learning project to understand how multiple independent services communicate and work together.
 
----
-
-## 🎯 Purpose
-
-The main purpose of this project is to gain practical experience with:
-
-* Microservices Architecture
-* Spring Boot
-* Spring Cloud
-* REST APIs
-* Service-to-Service Communication
-* Database Management
-* Authentication & Authorization
-* Docker & Containerization
-* Distributed System Concepts
-
-Rather than building everything at once, the project is being developed incrementally to understand how each part of a microservices-based system works.
+It includes user management, fitness activities, AI recommendations, authentication, service discovery, centralized configuration, and asynchronous communication.
 
 ---
 
-## 🏗️ Planned Architecture
+## 🏗️ Architecture
 
 ```text
-                         ┌─────────────────┐
-                         │   API Gateway   │
-                         └────────┬────────┘
-                                  │
-                    ┌─────────────┼─────────────┐
-                    │             │             │
-                    ▼             ▼             ▼
-              ┌──────────┐  ┌──────────┐  ┌──────────┐
-              │  User    │  │ Fitness  │  │ Workout  │
-              │ Service  │  │ Service  │  │ Service  │
-              └────┬─────┘  └────┬─────┘  └────┬─────┘
-                   │             │             │
-                   ▼             ▼             ▼
-                Database      Database      Database
-```
+                    React + Vite
+                         │
+                         ▼
+                    API Gateway
+                         │
+        ┌────────────────┼────────────────┐
+        ▼                ▼                ▼
+   User Service    Activity Service    AI Service
+        │                │                │
+      MySQL           MongoDB        Gemini API
+                         │
+                         ▼
+                     RabbitMQ
 
-The architecture will be expanded as the project grows.
+      Eureka → Service Discovery
+      Config Server → Centralized Configuration
+      Keycloak → Authentication
+```
 
 ---
 
-## 🚀 Current Progress
+## 🧩 Services
 
-### ✅ Completed
-
-* Spring Boot project setup
-* Initial project structure
-* Initial entities
-
-### 🔨 Currently Working On
-
-* Creating repositories
-* Creating service layers
-* Creating REST controllers
-* Database integration
-
-### 📌 Planned
-
-* [ ] Multiple independent microservices
-* [ ] API Gateway
-* [ ] Service Discovery
-* [ ] Inter-service communication
-* [ ] Centralized configuration
-* [ ] JWT Authentication & Authorization
-* [ ] Role-based access control
-* [ ] Resilience4j
-* [ ] Circuit Breaker & Retry
-* [ ] Docker
-* [ ] Docker Compose
-* [ ] Kafka
-* [ ] Redis
-* [ ] Logging & Monitoring
+| Service          | Responsibility                   |
+| ---------------- | -------------------------------- |
+| User Service     | User registration & validation   |
+| Activity Service | Fitness activity management      |
+| AI Service       | AI-based fitness recommendations |
+| API Gateway      | Routing & security               |
+| Eureka Server    | Service discovery                |
+| Config Server    | Centralized configuration        |
 
 ---
 
 ## 🛠️ Tech Stack
 
+### Frontend
+
+`React` `Vite` `JavaScript` `HTML` `CSS`
+
 ### Backend
 
-* **Java**
-* **Spring Boot**
-* **Spring Data JPA**
-* **Spring Security**
-* **REST APIs**
+`Java` `Spring Boot` `Spring Web` `Spring Data JPA` `Spring Data MongoDB`
 
-### Microservices
+### Spring Cloud
 
-* **Spring Cloud**
-* **Spring Cloud Gateway**
-* **Eureka Service Discovery**
-* **OpenFeign**
-
-### Database
-
-* **MySQL**
+`Spring Cloud Gateway` `Eureka` `Spring Cloud Config` `WebClient`
 
 ### Security
 
-* **JWT**
-* **Spring Security**
+`Keycloak` `OAuth2` `OpenID Connect` `JWT` `Spring Security`
 
-### DevOps & Tools
+### Database
 
-* **Git & GitHub**
-* **Maven**
-* **Docker**
-* **Docker Compose**
+`MySQL` `MongoDB`
 
-### Future Technologies
+### Messaging & AI
 
-* **Apache Kafka**
-* **Redis**
-* **Resilience4j**
+`RabbitMQ` `Gemini API`
+
+### Tools
+
+`Docker` `Maven` `Git` `GitHub` `Postman` `IntelliJ IDEA`
 
 ---
 
-## 📂 Project Structure
+## 🔄 Communication
 
-The structure will evolve as more microservices are added.
+### Synchronous
 
 ```text
-fitness-microservices/
-│
-├── user-service/
-│   └── src/
-│
-├── fitness-service/
-│   └── src/
-│
-├── workout-service/
-│   └── src/
-│
-├── api-gateway/
-│   └── src/
-│
-├── service-registry/
-│   └── src/
-│
-└── README.md
+Activity Service
+       │
+       ▼
+  User Service
 ```
 
-> The actual structure may change as the architecture develops.
+Service-to-service communication is handled using **WebClient**.
+
+### Asynchronous
+
+```text
+Activity Service
+       │
+       ▼
+    RabbitMQ
+       │
+       ▼
+    AI Service
+```
+
+RabbitMQ is used for event-based communication between services.
 
 ---
 
-## 🔄 Development Approach
+## 🔐 Authentication
 
-This project follows an incremental learning approach.
+Authentication is handled using **Keycloak**.
 
 ```text
-Spring Boot
-     ↓
-REST APIs
-     ↓
-Database Integration
-     ↓
-Multiple Services
-     ↓
-Service Communication
-     ↓
-Service Discovery
-     ↓
+User
+ ↓
+Keycloak
+ ↓
+JWT Token
+ ↓
 API Gateway
-     ↓
-Authentication
-     ↓
-Fault Tolerance
-     ↓
-Docker
-     ↓
-Kafka & Redis
+ ↓
+Microservice
 ```
 
-Each major feature will be added through separate Git commits to track the development and learning process.
+The API Gateway validates JWT tokens before forwarding requests.
 
 ---
 
-## 📚 What I'm Learning
-
-Through this project, I aim to understand how real-world backend systems are designed using microservices.
-
-Some of the key concepts include:
-
-* How microservices communicate
-* How services discover each other
-* How API Gateways work
-* How authentication works across services
-* How each service manages its own data
-* How failures are handled in distributed systems
-* How applications are containerized
-* How asynchronous communication works using Kafka
-
----
-
-## 🧪 Running the Project
-
-### Prerequisites
-
-Make sure you have the following installed:
-
-* Java
-* Maven
-* MySQL
-* Git
-
-Docker will be required once containerization is added.
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/tejasdubey2468/fitness-microservices.git
-```
-
-### Navigate to the Project
-
-```bash
-cd fitness-microservices
-```
-
-The exact commands for running individual services will be added as the project architecture develops.
-
----
-
-## 🔐 Configuration
-
-Sensitive information such as:
-
-* Database passwords
-* JWT secrets
-* API keys
-* Environment-specific configuration
-
-should **not** be committed to GitHub.
-
-Use environment variables or local configuration files for sensitive values.
-
----
-
-## 📈 Project Roadmap
+## 🗄️ Database
 
 ```text
-[x] Project Setup
-[x] Initial Entities
-[ ] Repository Layer
-[ ] Service Layer
-[ ] REST Controllers
-[ ] Database Integration
-[ ] User Service
-[ ] Fitness Service
-[ ] Workout Service
-[ ] Service Discovery
-[ ] API Gateway
-[ ] Inter-Service Communication
-[ ] JWT Authentication
-[ ] Resilience4j
-[ ] Docker
-[ ] Kafka
-[ ] Redis
-[ ] Monitoring
+User Service      → MySQL
+Activity Service  → MongoDB
+```
+
+Different services use databases according to their requirements.
+
+---
+
+## 🎨 Frontend
+
+The frontend provides a basic interface for interacting with the application.
+
+Built using:
+
+* React
+* Vite
+* JavaScript
+* HTML
+* CSS
+
+The frontend communicates with the backend through the API Gateway.
+
+---
+
+## 🔗 Main APIs
+
+```text
+POST  /users/register
+GET   /users/{userId}
+GET   /users/{userId}/validate
+
+POST  /activities
+GET   /activities/{activityId}
+GET   /activities/users/{userId}
+
+GET   /recommendation/**
 ```
 
 ---
 
-## 👨‍💻 Developer
+## 📁 Project Structure
+
+```text
+Fitness - Microservice/
+│
+├── eureka/
+├── configserver/
+├── gateway/
+├── userservice/
+├── activityservice/
+├── ai-service/
+└── frontend/
+```
+
+---
+
+## 🚀 Running the Project
+
+### Infrastructure
+
+* MySQL
+* MongoDB
+* RabbitMQ
+* Keycloak
+
+### Services
+
+* Eureka Server
+* Config Server
+* User Service
+* Activity Service
+* AI Service
+* API Gateway
+* React Frontend
+
+---
+
+## 🔑 Environment Variables
+
+Sensitive values should not be committed to GitHub.
+
+```env
+GEMINI_API_URL=<your-api-url>
+GEMINI_API_KEY=<your-api-key>
+```
+
+Keep database credentials and other secrets private.
+
+---
+
+## 📚 What I Learned
+
+This project helped me practically understand:
+
+* Microservice Architecture
+* Spring Boot & Spring Cloud
+* REST APIs
+* API Gateway
+* Service Discovery
+* Centralized Configuration
+* Service-to-Service Communication
+* JWT & Keycloak
+* MySQL & MongoDB
+* RabbitMQ
+* React & Vite
+* Docker
+* AI API Integration
+
+---
+
+## 🎯 Project Goal
+
+The main goal was to learn how an application can be divided into independent services and how those services communicate securely and efficiently.
+
+---
+
+## 🚧 Future Improvements
+
+* Better frontend UI/UX
+* Swagger / OpenAPI
+* Automated testing
+* Docker Compose
+* Monitoring & logging
+* Distributed tracing
+* Improved AI features
+* Cloud deployment
+
+---
+
+## 👨‍💻 Author
 
 **Tejas Dubey**
 
-Computer Engineering Student
-Interested in Backend Development, Java, Spring Boot and Microservices.
+B.Tech Computer Engineering / Computer Science Student
+
+[GitHub](https://github.com/tejasdubey2468)
 
 ---
 
-## ⭐ Project Goal
-
-The goal is not just to build a fitness application, but to **learn how scalable backend systems are designed, developed, secured, connected, and deployed using microservices architecture.**
-
-This repository will document that learning journey through continuous development and Git commits.
-
----
-
-## 📜 License
-
-This project is created for **learning and educational purposes**.
-
+⭐ **Built while learning Microservice Architecture.**
