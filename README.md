@@ -1,157 +1,218 @@
 # 🏋️ Fitness Microservices
 
-A fitness management application built while learning **Microservice Architecture** with Spring Boot, Spring Cloud, React, and AI.
+### A Microservice-Based Fitness Management Application
 
-## 📌 About
+<p align="center">
+  <b>Built while learning Microservice Architecture with Spring Boot, Spring Cloud, React, RabbitMQ, Keycloak & AI</b>
+</p>
 
-This project was created as a hands-on learning project to understand how multiple independent services communicate and work together.
+---
 
-It includes user management, fitness activities, AI recommendations, authentication, service discovery, centralized configuration, and asynchronous communication.
+## 📖 About The Project
+
+**Fitness Microservices** is a fitness management application developed as a hands-on project while learning **Microservice Architecture**.
+
+The application is divided into independent services for users, activities, and AI-based recommendations, allowing each service to have its own responsibility.
+
+It demonstrates how modern applications can use **API Gateway, Service Discovery, Authentication, Database Integration, Messaging, and AI** together.
+
+A basic frontend was also developed using **React, Vite, JavaScript, HTML, and CSS** to interact with the backend.
 
 ---
 
 ## 🏗️ Architecture
 
 ```text
-                    React + Vite
-                         │
-                         ▼
-                    API Gateway
-                         │
-        ┌────────────────┼────────────────┐
-        ▼                ▼                ▼
-   User Service    Activity Service    AI Service
-        │                │                │
-      MySQL           MongoDB        Gemini API
-                         │
-                         ▼
-                     RabbitMQ
+                         ┌─────────────────┐
+                         │  React + Vite   │
+                         │ HTML/CSS/JS     │
+                         └────────┬────────┘
+                                  │
+                                  ▼
+                         ┌─────────────────┐
+                         │   API Gateway   │
+                         └────────┬────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              ▼                   ▼                   ▼
+       ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+       │    User     │     │  Activity   │     │     AI      │
+       │   Service   │     │   Service   │     │   Service   │
+       └──────┬──────┘     └──────┬──────┘     └──────┬──────┘
+              │                   │                   │
+              ▼                   ▼                   ▼
+           MySQL              MongoDB             Gemini API
+                                  │
+                                  ▼
+                              RabbitMQ
 
-      Eureka → Service Discovery
-      Config Server → Centralized Configuration
-      Keycloak → Authentication
+             Eureka → Service Discovery
+             Config Server → Centralized Configuration
+             Keycloak → Authentication
 ```
 
 ---
 
-## 🧩 Services
+## ✨ Features
 
-| Service          | Responsibility                   |
-| ---------------- | -------------------------------- |
-| User Service     | User registration & validation   |
-| Activity Service | Fitness activity management      |
-| AI Service       | AI-based fitness recommendations |
-| API Gateway      | Routing & security               |
-| Eureka Server    | Service discovery                |
-| Config Server    | Centralized configuration        |
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-`React` `Vite` `JavaScript` `HTML` `CSS`
-
-### Backend
-
-`Java` `Spring Boot` `Spring Web` `Spring Data JPA` `Spring Data MongoDB`
-
-### Spring Cloud
-
-`Spring Cloud Gateway` `Eureka` `Spring Cloud Config` `WebClient`
-
-### Security
-
-`Keycloak` `OAuth2` `OpenID Connect` `JWT` `Spring Security`
-
-### Database
-
-`MySQL` `MongoDB`
-
-### Messaging & AI
-
-`RabbitMQ` `Gemini API`
-
-### Tools
-
-`Docker` `Maven` `Git` `GitHub` `Postman` `IntelliJ IDEA`
+* 👤 User registration and validation
+* 🏃 Fitness activity management
+* 🤖 AI-powered fitness recommendations
+* 🔐 JWT-based authentication with Keycloak
+* 🌐 Centralized API Gateway
+* 🔍 Service discovery using Eureka
+* ⚙️ Centralized configuration
+* 📨 Asynchronous communication using RabbitMQ
+* 🗄️ MySQL and MongoDB integration
+* 💻 React-based frontend
+* 🐳 Docker support
 
 ---
 
-## 🔄 Communication
+## 🧩 Microservices
 
-### Synchronous
+| Service             | Responsibility                          |
+| ------------------- | --------------------------------------- |
+| 👤 User Service     | User registration, details & validation |
+| 🏃 Activity Service | Fitness activity management             |
+| 🤖 AI Service       | AI-based recommendations                |
+| 🌐 API Gateway      | Request routing & security              |
+| 🔍 Eureka Server    | Service discovery                       |
+| ⚙️ Config Server    | Centralized configuration               |
+
+---
+
+# 🛠️ Tech Stack
+
+### 🎨 Frontend
+
+`React` · `Vite` · `JavaScript` · `HTML5` · `CSS3`
+
+### ☕ Backend
+
+`Java` · `Spring Boot` · `Spring Web` · `Spring Data JPA` · `Spring Data MongoDB`
+
+### ☁️ Spring Cloud
+
+`Spring Cloud Gateway` · `Eureka` · `Spring Cloud Config` · `WebClient`
+
+### 🔐 Security
+
+`Spring Security` · `Keycloak` · `OAuth2` · `OpenID Connect` · `JWT`
+
+### 🗄️ Databases
+
+`MySQL` · `MongoDB`
+
+### 📨 Messaging & AI
+
+`RabbitMQ` · `Gemini API`
+
+### 🔧 Tools
+
+`Docker` · `Maven` · `Git` · `GitHub` · `Postman` · `IntelliJ IDEA`
+
+---
+
+## 🔄 How It Works
+
+### User Flow
 
 ```text
-Activity Service
-       │
-       ▼
-  User Service
+React Frontend
+      ↓
+ API Gateway
+      ↓
+ User Service
+      ↓
+    MySQL
 ```
 
-Service-to-service communication is handled using **WebClient**.
+### Activity Flow
 
-### Asynchronous
+```text
+React Frontend
+      ↓
+ API Gateway
+      ↓
+Activity Service
+      ↓
+   MongoDB
+```
+
+### AI Flow
 
 ```text
 Activity Service
-       │
-       ▼
+      ↓
+   RabbitMQ
+      ↓
+  AI Service
+      ↓
+ Gemini API
+```
+
+---
+
+## 🔐 Authentication Flow
+
+```text
+       User
+        ↓
+    Keycloak
+        ↓
+   JWT Token
+        ↓
+   API Gateway
+        ↓
+  Microservices
+```
+
+Keycloak handles authentication while the API Gateway validates incoming JWT tokens.
+
+---
+
+## 📨 Service Communication
+
+The project demonstrates both **synchronous** and **asynchronous** communication.
+
+### Synchronous Communication
+
+```text
+Activity Service
+       ↓
+  WebClient
+       ↓
+ User Service
+```
+
+### Asynchronous Communication
+
+```text
+Activity Service
+       ↓
     RabbitMQ
-       │
-       ▼
-    AI Service
+       ↓
+   AI Service
 ```
-
-RabbitMQ is used for event-based communication between services.
-
----
-
-## 🔐 Authentication
-
-Authentication is handled using **Keycloak**.
-
-```text
-User
- ↓
-Keycloak
- ↓
-JWT Token
- ↓
-API Gateway
- ↓
-Microservice
-```
-
-The API Gateway validates JWT tokens before forwarding requests.
-
----
-
-## 🗄️ Database
-
-```text
-User Service      → MySQL
-Activity Service  → MongoDB
-```
-
-Different services use databases according to their requirements.
 
 ---
 
 ## 🎨 Frontend
 
-The frontend provides a basic interface for interacting with the application.
+The frontend was created as a basic interface for interacting with the microservices backend.
 
-Built using:
+It uses:
 
-* React
-* Vite
-* JavaScript
-* HTML
-* CSS
+```text
+React
+Vite
+JavaScript
+HTML
+CSS
+```
 
-The frontend communicates with the backend through the API Gateway.
+The frontend communicates with the backend through the **API Gateway** rather than directly accessing individual services.
 
 ---
 
@@ -177,47 +238,82 @@ GET   /recommendation/**
 Fitness - Microservice/
 │
 ├── eureka/
+│   └── Eureka Server
+│
 ├── configserver/
+│   └── Config Server
+│
 ├── gateway/
+│   └── API Gateway
+│
 ├── userservice/
+│   └── User Service
+│
 ├── activityservice/
+│   └── Activity Service
+│
 ├── ai-service/
+│   └── AI Service
+│
 └── frontend/
+    └── React + Vite
 ```
 
 ---
 
-## 🚀 Running the Project
+## 🚀 Getting Started
 
-### Infrastructure
+### 1. Clone the Repository
 
-* MySQL
-* MongoDB
-* RabbitMQ
-* Keycloak
+```bash
+git clone https://github.com/tejasdubey2468/Fitness-Microservice.git
+cd Fitness-Microservice
+```
 
-### Services
+### 2. Start Infrastructure
 
-* Eureka Server
-* Config Server
-* User Service
-* Activity Service
-* AI Service
-* API Gateway
-* React Frontend
+Make sure the following are running:
+
+```text
+MySQL
+MongoDB
+RabbitMQ
+Keycloak
+```
+
+### 3. Start Services
+
+Start the applications in this order:
+
+```text
+Eureka Server
+Config Server
+User Service
+Activity Service
+AI Service
+API Gateway
+Frontend
+```
 
 ---
 
 ## 🔑 Environment Variables
 
-Sensitive values should not be committed to GitHub.
+Keep sensitive credentials outside the repository.
 
 ```env
 GEMINI_API_URL=<your-api-url>
 GEMINI_API_KEY=<your-api-key>
 ```
 
-Keep database credentials and other secrets private.
+Do not commit:
+
+```text
+API Keys
+Passwords
+Secrets
+Private Credentials
+```
 
 ---
 
@@ -227,47 +323,57 @@ This project helped me practically understand:
 
 * Microservice Architecture
 * Spring Boot & Spring Cloud
-* REST APIs
+* REST API development
 * API Gateway
 * Service Discovery
 * Centralized Configuration
 * Service-to-Service Communication
-* JWT & Keycloak
+* OAuth2 & JWT
+* Keycloak
 * MySQL & MongoDB
 * RabbitMQ
 * React & Vite
 * Docker
-* AI API Integration
+* AI API integration
 
 ---
 
-## 🎯 Project Goal
+## 🎯 Learning Objective
 
-The main goal was to learn how an application can be divided into independent services and how those services communicate securely and efficiently.
+The main objective of this project was to move beyond building a simple monolithic application and understand how multiple independent services can work together.
+
+It gave me practical experience with **distributed systems, authentication, databases, messaging, service communication, and frontend-backend integration**.
 
 ---
 
 ## 🚧 Future Improvements
 
-* Better frontend UI/UX
-* Swagger / OpenAPI
-* Automated testing
-* Docker Compose
-* Monitoring & logging
-* Distributed tracing
-* Improved AI features
-* Cloud deployment
+* [ ] Improve frontend UI/UX
+* [ ] Add Swagger / OpenAPI
+* [ ] Add automated tests
+* [ ] Add Docker Compose
+* [ ] Improve monitoring and logging
+* [ ] Add distributed tracing
+* [ ] Improve AI recommendations
+* [ ] Deploy the application to the cloud
 
 ---
 
 ## 👨‍💻 Author
 
-**Tejas Dubey**
+### Tejas Dubey
 
-B.Tech Computer Engineering / Computer Science Student
+**B.Tech Computer Engineering / Computer Science Student**
 
-[GitHub](https://github.com/tejasdubey2468)
+Building projects and learning **Java • Spring Boot • Microservices • React • AI**
+
+🔗 **GitHub:**
+https://github.com/tejasdubey2468
 
 ---
 
-⭐ **Built while learning Microservice Architecture.**
+## ⭐ Project
+
+If you find this project interesting, feel free to explore the repository and follow my learning journey.
+
+**Built with ☕ Java, Spring Boot & a lot of debugging.**
